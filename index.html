@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Solid Template</title>
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,600" rel="stylesheet">
+    <link rel="stylesheet" href="dist/css/style.css">
+    <script src="https://unpkg.com/animejs@3.0.1/lib/anime.min.js"></script>
+    <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
+
+</head>
+<center>
+
+<body class="is-boxed has-animations">
+    <h1>
+        <center>大和 テック 株式 会社 </center>
+    </h1>
+    <div class="body-wrap">
+        <header class="site-header">
+            <div class="container">
+                <div class="site-header-inner">
+                    <div class="brand header-brand">
+                        <h1 class="m-0">
+                            <a href="#">
+                                <img class="header-logo-image" src="dist/images/logo.svg" alt="Logo">
+                            </a>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section class="hero">
+                <div class="container">
+                    <div class="hero-inner">
+                        <div class="hero-copy">
+                            <h1 class="hero-title mt-0">Simple Edi CSV </h1>
+                            <h1 class="hero-title mt-0">Translation syatem </h1>
+
+                            <p class="hero-paragraph">「CSV EDI」を変更するには、ドロップダウンから会社名を選択し、csv ファイルをアップロードして、「CSV 修正」をクリックします。</p>
+                            <p>----------------------------------------------</p>
+
+
+
+                            <br><br>
+                            <select name="edies" id="companyedi">
+                                <option value="company_name">...会社名...</option>
+                                <option value="company1">会社名1</option>
+                                <option value="company2">会社名2</option>
+                                <option value="company3">会社名3</option>
+                                <option value="company4">会社名4</option>
+                                <option value="company5">会社名5</option>
+                                <option value="company6">会社名6</option>
+                                <option value="company7">会社名7</option>
+                                <option value="company8">会社名8</option>
+                                <option value="company9">会社名9</option>
+                                <option value="company10">会社名10</option>
+
+                            </select>
+                            <br><br>
+
+
+
+
+
+                            <form id="csvForm">
+                                <label for="csvFile">Select CSV file:</label>
+                                <input type="file" id="csvFile" accept=".csv" required><br><br>
+
+                                <button class="button button-primary" id='csvdone' type="submit">CSV 修正</button>
+                            </form>
+
+
+
+
+
+                            <SCRipt>
+
+
+
+
+                                const csvDoneButton = document.getElementById("csvdone");
+                                csvDoneButton.addEventListener("click", () => {
+                                    //everything gose here after click button
+
+                                    const select = document.getElementById("companyedi");
+                                    const selectedOption = select.options[select.selectedIndex];
+                                    const selectedValue = selectedOption.value;
+
+
+
+
+
+
+                                    switch (selectedValue) {
+                                        case "company1":
+                                            //everytion for company one 
+                                            const csvFile1 = document.getElementById('csvFile').files[0];
+                                            if (csvFile1) {
+                                                const reader = new FileReader();
+                                                reader.onload = function (e) {
+                                                    const content = e.target.result;
+                                                    const rows = content.split('\n');
+                                                    const modifiedRows = rows.map(row => {
+                                                        const columns = row.split(',');
+
+                                                        if (columns.length >= 9) {
+                                                            // Rearrange columns 1, 2, 3, 4, 5, 6, 7, 8, 9 to 1, 2, 3, 5, 6, 4, 7, 8, 9
+                                                            const temp1 = columns[0];
+                                                            const temp2 = columns[1];
+                                                            const temp3 = columns[2];
+                                                            const temp4 = columns[3];
+                                                            const temp5 = columns[4];
+                                                            const temp6 = columns[5];
+                                                            const temp7 = columns[6];
+                                                            const temp8 = columns[7];
+                                                            const temp9 = columns[8];
+
+                                                            columns[0] = temp1;
+                                                            columns[1] = temp2;
+                                                            columns[2] = temp3;
+                                                            columns[3] = temp5;
+                                                            columns[4] = temp6;
+                                                            columns[5] = temp4;
+                                                            columns[6] = temp7;
+                                                            columns[7] = temp8;
+                                                            columns[8] = temp9;
+                                                        } else {
+                                                            columns[0] = 'error';
+                                                        }
+
+                                                        // Remove the last 3 columns
+                                                        if (columns.length >= 6) {
+                                                            columns.splice(-3);
+                                                        }
+
+                                                        return columns.join(',');
+                                                    });
+
+                                                    const modifiedCSV = modifiedRows.join('\n');
+                                                    const blob = new Blob([modifiedCSV], { type: 'text/csv' });
+                                                    const downloadLink = document.createElement('a');
+                                                    downloadLink.href = URL.createObjectURL(blob);
+                                                    downloadLink.download = 'modified.csv';
+                                                    downloadLink.click();
+                                                };
+
+                                                reader.readAsText(csvFile1);
+                                            }
+
+                                            break;
+
+                                        case "company2":
+                                              //everytion for company two 
+                                              const csvFile2 = document.getElementById('csvFile').files[0];
+                                            if (csvFile2) {
+                                                const reader = new FileReader();
+                                                reader.onload = function (e) {
+                                                    const content = e.target.result;
+                                                    const rows = content.split('\n');
+                                                    const modifiedRows = rows.map(row => {
+                                                        const columns = row.split(',');
+
+                                                        if (columns.length >= 9) {
+                                                            // Rearrange columns 1, 2, 3, 4, 5, 6, 7, 8, 9 to 1, 2, 3, 5, 6, 4, 7, 8, 9
+                                                            const temp1 = columns[0];
+                                                            const temp2 = columns[1];
+                                                            const temp3 = columns[2];
+                                                            const temp4 = columns[3];
+                                                            const temp5 = columns[4];
+                                                            const temp6 = columns[5];
+                                                            const temp7 = columns[6];
+                                                            const temp8 = columns[7];
+                                                            const temp9 = columns[8];
+
+                                                            columns[0] = temp1;
+                                                            columns[1] = temp2;
+                                                            columns[2] = temp3;
+                                                            columns[3] = temp5;
+                                                            columns[4] = temp6;
+                                                            columns[5] = temp4;
+                                                            columns[6] = temp7;
+                                                            columns[7] = temp8;
+                                                            columns[8] = temp9;
+                                                        } else {
+                                                            columns[0] = 'error';
+                                                        }
+
+                                                        // Remove the last 3 columns
+                                                        if (columns.length >= 6) {
+                                                            columns.splice(-3);
+                                                        }
+
+                                                        return columns.join(',');
+                                                    });
+
+                                                    const modifiedCSV = modifiedRows.join('\n');
+                                                    const blob = new Blob([modifiedCSV], { type: 'text/csv' });
+                                                    const downloadLink = document.createElement('a');
+                                                    downloadLink.href = URL.createObjectURL(blob);
+                                                    downloadLink.download = 'modified.csv';
+                                                    downloadLink.click();
+                                                };
+
+                                                reader.readAsText(csvFile2);
+                                            }
+
+                                            break;
+
+                                        case "company3":
+                                              //everytion for company three 
+                                              const csvFile3 = document.getElementById('csvFile').files[0];
+                                            if (csvFile3) {
+                                                const reader = new FileReader();
+                                                reader.onload = function (e) {
+                                                    const content = e.target.result;
+                                                    const rows = content.split('\n');
+                                                    const modifiedRows = rows.map(row => {
+                                                        const columns = row.split(',');
+
+                                                        if (columns.length >= 9) {
+                                                            // Rearrange columns 1, 2, 3, 4, 5, 6, 7, 8, 9 to 1, 2, 3, 5, 6, 4, 7, 8, 9
+                                                            const temp1 = columns[0];
+                                                            const temp2 = columns[1];
+                                                            const temp3 = columns[2];
+                                                            const temp4 = columns[3];
+                                                            const temp5 = columns[4];
+                                                            const temp6 = columns[5];
+                                                            const temp7 = columns[6];
+                                                            const temp8 = columns[7];
+                                                            const temp9 = columns[8];
+
+                                                            columns[0] = temp1;
+                                                            columns[1] = temp2;
+                                                            columns[2] = temp3;
+                                                            columns[3] = temp5;
+                                                            columns[4] = temp6;
+                                                            columns[5] = temp4;
+                                                            columns[6] = temp7;
+                                                            columns[7] = temp8;
+                                                            columns[8] = temp9;
+                                                        } else {
+                                                            columns[0] = 'error';
+                                                        }
+
+                                                        // Remove the last 3 columns
+                                                        if (columns.length >= 6) {
+                                                            columns.splice(-3);
+                                                        }
+
+                                                        return columns.join(',');
+                                                    });
+
+                                                    const modifiedCSV = modifiedRows.join('\n');
+                                                    const blob = new Blob([modifiedCSV], { type: 'text/csv' });
+                                                    const downloadLink = document.createElement('a');
+                                                    downloadLink.href = URL.createObjectURL(blob);
+                                                    downloadLink.download = 'modified.csv';
+                                                    downloadLink.click();
+                                                };
+
+                                                reader.readAsText(csvFile3);
+                                            }
+
+                                            break;
+
+                                        case "company4":
+                                             //everytion for company one 
+                                             const csvFile4 = document.getElementById('csvFile').files[0];
+                                            if (csvFile4) {
+                                                const reader = new FileReader();
+                                                reader.onload = function (e) {
+                                                    const content = e.target.result;
+                                                    const rows = content.split('\n');
+                                                    const modifiedRows = rows.map(row => {
+                                                        const columns = row.split(',');
+
+                                                        if (columns.length >= 9) {
+                                                            // Rearrange columns 1, 2, 3, 4, 5, 6, 7, 8, 9 to 1, 2, 3, 5, 6, 4, 7, 8, 9
+                                                            const temp1 = columns[0];
+                                                            const temp2 = columns[1];
+                                                            const temp3 = columns[2];
+                                                            const temp4 = columns[3];
+                                                            const temp5 = columns[4];
+                                                            const temp6 = columns[5];
+                                                            const temp7 = columns[6];
+                                                            const temp8 = columns[7];
+                                                            const temp9 = columns[8];
+
+                                                            columns[0] = temp1;
+                                                            columns[1] = temp2;
+                                                            columns[2] = temp3;
+                                                            columns[3] = temp5;
+                                                            columns[4] = temp6;
+                                                            columns[5] = temp4;
+                                                            columns[6] = temp7;
+                                                            columns[7] = temp8;
+                                                            columns[8] = temp9;
+                                                        } else {
+                                                            columns[0] = 'error';
+                                                        }
+
+                                                        // Remove the last 3 columns
+                                                        if (columns.length >= 6) {
+                                                            columns.splice(-3);
+                                                        }
+
+                                                        return columns.join(',');
+                                                    });
+
+                                                    const modifiedCSV = modifiedRows.join('\n');
+                                                    const blob = new Blob([modifiedCSV], { type: 'text/csv' });
+                                                    const downloadLink = document.createElement('a');
+                                                    downloadLink.href = URL.createObjectURL(blob);
+                                                    downloadLink.download = 'modified.csv';
+                                                    downloadLink.click();
+                                                };
+
+                                                reader.readAsText(csvFile4);
+                                            }
+
+                                            break;
+
+                                        case "company5":
+                                              //everytion for company one 
+                                              const csvFile5 = document.getElementById('csvFile').files[0];
+                                            if (csvFile5) {
+                                                const reader = new FileReader();
+                                                reader.onload = function (e) {
+                                                    const content = e.target.result;
+                                                    const rows = content.split('\n');
+                                                    const modifiedRows = rows.map(row => {
+                                                        const columns = row.split(',');
+
+                                                        if (columns.length >= 9) {
+                                                            // Rearrange columns 1, 2, 3, 4, 5, 6, 7, 8, 9 to 1, 2, 3, 5, 6, 4, 7, 8, 9
+                                                            const temp1 = columns[0];
+                                                            const temp2 = columns[1];
+                                                            const temp3 = columns[2];
+                                                            const temp4 = columns[3];
+                                                            const temp5 = columns[4];
+                                                            const temp6 = columns[5];
+                                                            const temp7 = columns[6];
+                                                            const temp8 = columns[7];
+                                                            const temp9 = columns[8];
+
+                                                            columns[0] = temp1;
+                                                            columns[1] = temp2;
+                                                            columns[2] = temp3;
+                                                            columns[3] = temp5;
+                                                            columns[4] = temp6;
+                                                            columns[5] = temp4;
+                                                            columns[6] = temp7;
+                                                            columns[7] = temp8;
+                                                            columns[8] = temp9;
+                                                        } else {
+                                                            columns[0] = 'error';
+                                                        }
+
+                                                        // Remove the last 3 columns
+                                                        if (columns.length >= 6) {
+                                                            columns.splice(-3);
+                                                        }
+
+                                                        return columns.join(',');
+                                                    });
+
+                                                    const modifiedCSV = modifiedRows.join('\n');
+                                                    const blob = new Blob([modifiedCSV], { type: 'text/csv' });
+                                                    const downloadLink = document.createElement('a');
+                                                    downloadLink.href = URL.createObjectURL(blob);
+                                                    downloadLink.download = 'modified.csv';
+                                                    downloadLink.click();
+                                                };
+
+                                                reader.readAsText(csvFile5);
+                                            }
+
+                                            break;
+
+                                        case "company6":
+                                              //everytion for company one 
+                                              const csvFile6 = document.getElementById('csvFile').files[0];
+                                            if (csvFile6) {
+                                                const reader = new FileReader();
+                                                reader.onload = function (e) {
+                                                    const content = e.target.result;
+                                                    const rows = content.split('\n');
+                                                    const modifiedRows = rows.map(row => {
+                                                        const columns = row.split(',');
+
+                                                        if (columns.length >= 9) {
+                                                            // Rearrange columns 1, 2, 3, 4, 5, 6, 7, 8, 9 to 1, 2, 3, 5, 6, 4, 7, 8, 9
+                                                            const temp1 = columns[0];
+                                                            const temp2 = columns[1];
+                                                            const temp3 = columns[2];
+                                                            const temp4 = columns[3];
+                                                            const temp5 = columns[4];
+                                                            const temp6 = columns[5];
+                                                            const temp7 = columns[6];
+                                                            const temp8 = columns[7];
+                                                            const temp9 = columns[8];
+
+                                                            columns[0] = temp1;
+                                                            columns[1] = temp2;
+                                                            columns[2] = temp3;
+                                                            columns[3] = temp5;
+                                                            columns[4] = temp6;
+                                                            columns[5] = temp4;
+                                                            columns[6] = temp7;
+                                                            columns[7] = temp8;
+                                                            columns[8] = temp9;
+                                                        } else {
+                                                            columns[0] = 'error';
+                                                        }
+
+                                                        // Remove the last 3 columns
+                                                        if (columns.length >= 6) {
+                                                            columns.splice(-3);
+                                                        }
+
+                                                        return columns.join(',');
+                                                    });
+
+                                                    const modifiedCSV = modifiedRows.join('\n');
+                                                    const blob = new Blob([modifiedCSV], { type: 'text/csv' });
+                                                    const downloadLink = document.createElement('a');
+                                                    downloadLink.href = URL.createObjectURL(blob);
+                                                    downloadLink.download = 'modified.csv';
+                                                    downloadLink.click();
+                                                };
+
+                                                reader.readAsText(csvFile6);
+                                            }
+
+                                            break;
+
+                                        case "company7":
+                                              //everytion for company one 
+                                              const csvFile7 = document.getElementById('csvFile').files[0];
+                                            if (csvFile7) {
+                                                const reader = new FileReader();
+                                                reader.onload = function (e) {
+                                                    const content = e.target.result;
+                                                    const rows = content.split('\n');
+                                                    const modifiedRows = rows.map(row => {
+                                                        const columns = row.split(',');
+
+                                                        if (columns.length >= 9) {
+                                                            // Rearrange columns 1, 2, 3, 4, 5, 6, 7, 8, 9 to 1, 2, 3, 5, 6, 4, 7, 8, 9
+                                                            const temp1 = columns[0];
+                                                            const temp2 = columns[1];
+                                                            const temp3 = columns[2];
+                                                            const temp4 = columns[3];
+                                                            const temp5 = columns[4];
+                                                            const temp6 = columns[5];
+                                                            const temp7 = columns[6];
+                                                            const temp8 = columns[7];
+                                                            const temp9 = columns[8];
+
+                                                            columns[0] = temp1;
+                                                            columns[1] = temp2;
+                                                            columns[2] = temp3;
+                                                            columns[3] = temp5;
+                                                            columns[4] = temp6;
+                                                            columns[5] = temp4;
+                                                            columns[6] = temp7;
+                                                            columns[7] = temp8;
+                                                            columns[8] = temp9;
+                                                        } else {
+                                                            columns[0] = 'error';
+                                                        }
+
+                                                        // Remove the last 3 columns
+                                                        if (columns.length >= 6) {
+                                                            columns.splice(-3);
+                                                        }
+
+                                                        return columns.join(',');
+                                                    });
+
+                                                    const modifiedCSV = modifiedRows.join('\n');
+                                                    const blob = new Blob([modifiedCSV], { type: 'text/csv' });
+                                                    const downloadLink = document.createElement('a');
+                                                    downloadLink.href = URL.createObjectURL(blob);
+                                                    downloadLink.download = 'modified.csv';
+                                                    downloadLink.click();
+                                                };
+
+                                                reader.readAsText(csvFile7);
+                                            }
+
+                                            break;
+
+                                        case "company8":
+                                              //everytion for company one 
+                                              const csvFile8 = document.getElementById('csvFile').files[0];
+                                            if (csvFile8) {
+                                                const reader = new FileReader();
+                                                reader.onload = function (e) {
+                                                    const content = e.target.result;
+                                                    const rows = content.split('\n');
+                                                    const modifiedRows = rows.map(row => {
+                                                        const columns = row.split(',');
+
+                                                        if (columns.length >= 9) {
+                                                            // Rearrange columns 1, 2, 3, 4, 5, 6, 7, 8, 9 to 1, 2, 3, 5, 6, 4, 7, 8, 9
+                                                            const temp1 = columns[0];
+                                                            const temp2 = columns[1];
+                                                            const temp3 = columns[2];
+                                                            const temp4 = columns[3];
+                                                            const temp5 = columns[4];
+                                                            const temp6 = columns[5];
+                                                            const temp7 = columns[6];
+                                                            const temp8 = columns[7];
+                                                            const temp9 = columns[8];
+
+                                                            columns[0] = temp1;
+                                                            columns[1] = temp2;
+                                                            columns[2] = temp3;
+                                                            columns[3] = temp5;
+                                                            columns[4] = temp6;
+                                                            columns[5] = temp4;
+                                                            columns[6] = temp7;
+                                                            columns[7] = temp8;
+                                                            columns[8] = temp9;
+                                                        } else {
+                                                            columns[0] = 'error';
+                                                        }
+
+                                                        // Remove the last 3 columns
+                                                        if (columns.length >= 6) {
+                                                            columns.splice(-3);
+                                                        }
+
+                                                        return columns.join(',');
+                                                    });
+
+                                                    const modifiedCSV = modifiedRows.join('\n');
+                                                    const blob = new Blob([modifiedCSV], { type: 'text/csv' });
+                                                    const downloadLink = document.createElement('a');
+                                                    downloadLink.href = URL.createObjectURL(blob);
+                                                    downloadLink.download = 'modified.csv';
+                                                    downloadLink.click();
+                                                };
+
+                                                reader.readAsText(csvFile8);
+                                            }
+
+                                            break;
+
+                                        case "company9":
+                                              //everytion for company one 
+                                              const csvFile9 = document.getElementById('csvFile').files[0];
+                                            if (csvFile9) {
+                                                const reader = new FileReader();
+                                                reader.onload = function (e) {
+                                                    const content = e.target.result;
+                                                    const rows = content.split('\n');
+                                                    const modifiedRows = rows.map(row => {
+                                                        const columns = row.split(',');
+
+                                                        if (columns.length >= 9) {
+                                                            // Rearrange columns 1, 2, 3, 4, 5, 6, 7, 8, 9 to 1, 2, 3, 5, 6, 4, 7, 8, 9
+                                                            const temp1 = columns[0];
+                                                            const temp2 = columns[1];
+                                                            const temp3 = columns[2];
+                                                            const temp4 = columns[3];
+                                                            const temp5 = columns[4];
+                                                            const temp6 = columns[5];
+                                                            const temp7 = columns[6];
+                                                            const temp8 = columns[7];
+                                                            const temp9 = columns[8];
+
+                                                            columns[0] = temp1;
+                                                            columns[1] = temp2;
+                                                            columns[2] = temp3;
+                                                            columns[3] = temp5;
+                                                            columns[4] = temp6;
+                                                            columns[5] = temp4;
+                                                            columns[6] = temp7;
+                                                            columns[7] = temp8;
+                                                            columns[8] = temp9;
+                                                        } else {
+                                                            columns[0] = 'error';
+                                                        }
+
+                                                        // Remove the last 3 columns
+                                                        if (columns.length >= 6) {
+                                                            columns.splice(-3);
+                                                        }
+
+                                                        return columns.join(',');
+                                                    });
+
+                                                    const modifiedCSV = modifiedRows.join('\n');
+                                                    const blob = new Blob([modifiedCSV], { type: 'text/csv' });
+                                                    const downloadLink = document.createElement('a');
+                                                    downloadLink.href = URL.createObjectURL(blob);
+                                                    downloadLink.download = 'modified.csv';
+                                                    downloadLink.click();
+                                                };
+
+                                                reader.readAsText(csvFile9);
+                                            }
+
+                                            break;
+                                        case "company10":
+                                              //everytion for company one 
+                                              const csvFile10 = document.getElementById('csvFile').files[0];
+                                            if (csvFile10) {
+                                                const reader = new FileReader();
+                                                reader.onload = function (e) {
+                                                    const content = e.target.result;
+                                                    const rows = content.split('\n');
+                                                    const modifiedRows = rows.map(row => {
+                                                        const columns = row.split(',');
+
+                                                        if (columns.length >= 9) {
+                                                            // Rearrange columns 1, 2, 3, 4, 5, 6, 7, 8, 9 to 1, 2, 3, 5, 6, 4, 7, 8, 9
+                                                            const temp1 = columns[0];
+                                                            const temp2 = columns[1];
+                                                            const temp3 = columns[2];
+                                                            const temp4 = columns[3];
+                                                            const temp5 = columns[4];
+                                                            const temp6 = columns[5];
+                                                            const temp7 = columns[6];
+                                                            const temp8 = columns[7];
+                                                            const temp9 = columns[8];
+
+                                                            columns[0] = temp1;
+                                                            columns[1] = temp2;
+                                                            columns[2] = temp3;
+                                                            columns[3] = temp5;
+                                                            columns[4] = temp6;
+                                                            columns[5] = temp4;
+                                                            columns[6] = temp7;
+                                                            columns[7] = temp8;
+                                                            columns[8] = temp9;
+                                                        } else {
+                                                            columns[0] = 'error';
+                                                        }
+
+                                                        // Remove the last 3 columns
+                                                        if (columns.length >= 6) {
+                                                            columns.splice(-3);
+                                                        }
+
+                                                        return columns.join(',');
+                                                    });
+
+                                                    const modifiedCSV = modifiedRows.join('\n');
+                                                    const blob = new Blob([modifiedCSV], { type: 'text/csv' });
+                                                    const downloadLink = document.createElement('a');
+                                                    downloadLink.href = URL.createObjectURL(blob);
+                                                    downloadLink.download = 'modified.csv';
+                                                    downloadLink.click();
+                                                };
+
+                                                reader.readAsText(csvFile10);
+                                            }
+
+                                            break;
+
+                                        default:
+                                            alert("会社名を選択してください.");
+                                    }
+
+
+
+                                });
+                            </SCRipt>
+
+
+
+                        </div>
+                        <div class="hero-figure anime-element">
+                            <svg class="placeholder" width="528" height="396" viewBox="0 0 528 396">
+                                <rect width="528" height="396" style="fill:transparent;" />
+                            </svg>
+                            <div class="hero-figure-box hero-figure-box-01" data-rotation="45deg"></div>
+                            <div class="hero-figure-box hero-figure-box-02" data-rotation="-45deg"></div>
+                            <div class="hero-figure-box hero-figure-box-03" data-rotation="0deg"></div>
+                            <div class="hero-figure-box hero-figure-box-04" data-rotation="-135deg"></div>
+                            <div class="hero-figure-box hero-figure-box-05"></div>
+                            <div class="hero-figure-box hero-figure-box-06"></div>
+                            <div class="hero-figure-box hero-figure-box-07"></div>
+                            <div class="hero-figure-box hero-figure-box-08" data-rotation="-22deg"></div>
+                            <div class="hero-figure-box hero-figure-box-09" data-rotation="-52deg"></div>
+                            <div class="hero-figure-box hero-figure-box-10" data-rotation="-50deg"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="features section" style="display: none;">
+                <div class="container">
+                    <div class="features-inner section-inner has-bottom-divider">
+                        <div class="features-wrap">
+                            <div class="feature text-center is-revealing">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+
+            <section class="cta section" >
+                <div class="container">
+                    <div class="cta-inner section-inner">
+                        <h3 class="section-title mt-0">connect-to yamato-tec.jp</h3>
+                        <div class="cta-cta">
+                            <a class="button button-primary button-wide-mobile" href="http://www.yamato-tec.jp/">Get in
+                                touch</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            <div class="container">
+                <div class="site-footer-inner">
+                    <div class="brand footer-brand">
+                        <a href="#">
+                            <img class="header-logo-image" src="dist/images/logo.svg" alt="Logo">
+                        </a>
+                    </div>
+                    <ul class="footer-links list-reset">
+                        <li>
+                            <a href="http://yamato-tec.jp/?m=inquiry/index">Contact</a>
+                        </li>
+                        <li>
+                            <a href="http://yamato-tec.jp/?m=about">About us</a>
+                        </li>
+                        <li>
+                            <a href="#">FAQ's</a>
+                        </li>
+                        <li>
+                            <a href="#">Support</a>
+                        </li>
+                    </ul>
+
+                    </ul>
+                    <div class="footer-copyright">&copy; 2023 yamato-tec, all rights reserved</div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="dist/js/main.min.js"></script>
+</body>
+</center>
+</html>
